@@ -2,7 +2,10 @@
 
 ## apache
 http 요청을 처리하는 웹 서버
+
 정적인 데이터를 처리
+
+기본 포트로 80 제공
 
 ## tomcat
 WAS(Web Application Server)
@@ -10,5 +13,8 @@ WAS(Web Application Server)
 
 동적인 데이터를 처리
 
+아파치 없이 톰캣만 사용할 경우 기본 포트 8080을 써야 함
+
 - 웹 컨테이너 : 클라이언트의 요청을 받아 내부 로직을 통해 결과를 만들어내고 다시 클라이언트에 전달해주는 역할. JSP, Servlet 구동 환경 제공
+
 
