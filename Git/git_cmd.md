@@ -14,6 +14,8 @@
 
 > git config --global core.editor "실행파일 경로"
 
+ex) gVim 설정 : git config --global core.editor "'C:\Program Files (x86)\Vim\vim80\gvim.exe'"
+
 ### 설정 확인
 
 > git config --list
@@ -96,6 +98,8 @@
 - 디렉토리는 슬래시(/)를 끝에 사용하는 것으로 표현한다.
 
 - 느낌표(!)로 시작하는 패턴의 파일은 무시하지 않는다.
+
+[https://www.gitignore.io/api/eclipse](https://www.gitignore.io/api/eclipse)
 
 ## git diff - 파일 변경 내용 보기
 
