@@ -126,3 +126,17 @@ staging area 생략하기
 Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지우지 않기
 
 > git rm --cached FILENAME
+
+## git add
+
+### 변경되는 부분 확인하면서 추가하기
+
+> git add -p
+
+### add 취소하기
+
+> git reset
+
+# 링크
+
+- [Git 명령어 정리](https://medium.com/@joongwon/git-git-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%A0%95%EB%A6%AC-c25b421ecdbd)

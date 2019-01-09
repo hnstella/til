@@ -55,3 +55,58 @@ $(document).ready(function() {
 ## Check dataTable reinitialise
 
 - [참고 : 3. Warning: Cannot reinitialise Data](https://datatables.net/manual/tech-notes/3#retrieve)
+
+## 특정 컬럼 hidden 처리 시 값 가져오는 방법
+
+- [row().data()](<https://datatables.net/reference/api/row().data()>) 참고
+- row().data()를 사용하여 가져온다.
+
+1. visible: false 처리
+
+```javascript
+table = $('#userListTbl').DataTable({
+  pageLength: 10,
+  pagingType: 'simple',
+  processing: true,
+  searching: true,
+  ordering: false,
+  info: false,
+  lengthChange: false,
+  serverSide: false,
+  ajax: {
+    url: '/pharosExt/getUserList.do',
+    type: 'GET',
+    data: {
+      userId: oaId
+    },
+    dataSrc: 'list'
+  },
+  columns: [
+    { data: 'COMP_NM' },
+    { data: 'DEPT_NM' },
+    { data: 'NAME' },
+    { data: 'EMAIL' },
+    { data: 'PERSON_NO', visible: false },
+    { data: 'COMP_CD', visible: false }
+  ]
+});
+```
+
+2. 데이터 선택 시 선택한 row 데이터 가져오기
+
+```javascript
+/* Modal에서 row 선택 시 요청자에 입력 */
+$(document).on('click', '#userListTbl tbody tr', function(e) {
+  e.preventDefault();
+
+  var table = $('#userListTbl').DataTable();
+  var columns = table.row($(this)).data();
+  console.log(columns);
+
+  $('#compCd').val(columns.COMP_CD);
+  $('#compNm').val(columns.COMP_NM);
+  $('#userId').val(columns.PERSON_NO);
+  $('#userNm').val(columns.NAME);
+  $('#myModal').modal('toggle');
+});
+```
