@@ -46,12 +46,12 @@ ex) gVim 설정 : git config --global core.editor "'C:\Program Files (x86)\Vim\v
 
 - 히스토리 내용을 보여줄 때 여러가지 형식으로 보여줌
 
-> git log --pretty=oneline
-> 1c2e951be50ae7431a26c5c827312db63f79debd (HEAD -> dev, origin/master, origin/dev, master) 제목 수정
+> git log --pretty=oneline<br>
+> 1c2e951be50ae7431a26c5c827312db63f79debd (HEAD -> dev, origin/master, origin/dev, master) 제목 수정<br>
 > d0ffd58d60478e88a86b168e59cd9c44a927c107 add README
 
-> git log --pretty=format:"%h - %an, %ar : %s"
-> 1c2e951 - hanakim, 7 days ago : 제목 수정
+> git log --pretty=format:"%h - %an, %ar : %s"<br>
+> 1c2e951 - hanakim, 7 days ago : 제목 수정<br>
 > d0ffd58 - hanakim, 7 days ago : add README
 
 [git log --pretty=format 에 쓸 유용한 옵션](https://git-scm.com/book/ko/v2/Git%EC%9D%98-%EA%B8%B0%EC%B4%88-%EC%BB%A4%EB%B0%8B-%ED%9E%88%EC%8A%A4%ED%86%A0%EB%A6%AC-%EC%A1%B0%ED%9A%8C%ED%95%98%EA%B8%B0#pretty_format)
@@ -133,9 +133,45 @@ Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지�
 
 > git add -p
 
+### stage the modifed and delete files
+
+> git add -u
+
 ### add 취소하기
 
 > git reset
+
+## git merge
+
+합칠 브랜치에서 합쳐질 브랜치를 merge
+
+> git checkout master<br>
+> git merge dev
+
+## git tag 생성
+
+### Lightweight 태그
+
+- 브랜치와 비슷하지만 브랜치처럼 가리키는 지점을 최신 커밋으로 이동시키지 않는다. 단순 특정 커밋에 대한 포인터일 뿐
+- 임시로 생성하는 태그이거나 기타 정보가 필요없는 경우 사용
+
+### Annotated 태그
+
+- Git 데이터베이스에 태그 만든 사람 이름, 이메일, 날짜, 태그 메시지를 저장한다.
+- GPG(GNU Privacy Guard)로 서명할 수도 있다.
+
+태그 조회
+
+> git tag
+
+Lightweight 태그 붙이기
+
+> git tag v1.1
+
+Annotated 태그 붙이기
+
+> git tag _-a_ v1.0.0 -m "log messager"<br>
+> git show v1.0.0
 
 # 링크
 
