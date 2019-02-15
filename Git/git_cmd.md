@@ -173,6 +173,12 @@ Annotated 태그 붙이기
 > git tag _-a_ v1.0.0 -m "log messager"<br>
 > git show v1.0.0
 
+### 태그 공유하기
+
+git push origin <태그이름> 을 실행해야 한다.
+
+> git push origin v1.0.0
+
 # 링크
 
 - [Git 명령어 정리](https://medium.com/@joongwon/git-git-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%A0%95%EB%A6%AC-c25b421ecdbd)
