@@ -111,23 +111,7 @@ Staging Area에 넣은 파일의 변경 부분 보기 : 저장소에 커밋한 �
 
 > git diff --cached
 
-## git commit
-
-메시지 인라인 첨부
-
-> git commit -m "log message"
-
-staging area 생략하기
-
-> git commit -a
-
-## git rm
-
-Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지우지 않기
-
-> git rm --cached FILENAME
-
-## git add
+## git add - 인덱스(staging area)에 추가
 
 ### 변경되는 부분 확인하면서 추가하기
 
@@ -140,6 +124,32 @@ Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지�
 ### add 취소하기
 
 > git reset
+
+## git commit - 저장소에 저장
+
+메시지 인라인 첨부
+
+> git commit -m "log message"
+
+staging area 생략하기
+
+> git commit -a
+
+변경된 부분 확인하면서 commit하기
+
+> git commit -v
+
+## git push - 리모트 저장소에 저장
+
+브랜치 push 하기
+
+> git push origin [branchname]
+
+## git rm
+
+Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지우지 않기
+
+> git rm --cached FILENAME
 
 ## git merge
 
@@ -182,3 +192,5 @@ git push origin <태그이름> 을 실행해야 한다.
 # 링크
 
 - [Git 명령어 정리](https://medium.com/@joongwon/git-git-%EB%AA%85%EB%A0%B9%EC%96%B4-%EC%A0%95%EB%A6%AC-c25b421ecdbd)
+
+git push origin hanak
