@@ -37,34 +37,44 @@ $('#searchForm').validate({
 
 ## text 표시하지 말고 알람 처리
 
+- text 표시하지 않고 알람 처리 (invalidHandler)
+- highlight/unhighlight에서 bootstrap class 추가/삭제 (참고)[https://stackoverflow.com/questions/28489625/jquery-validation-showerrors-blocks-highlight-unhighlight]
+
 ```javascript
 $(function () {
-  /* 오류메시지 alert 처리 */
   $.validator.setDefaults({
-    onkeyup: false,
-    onclick: false,
-    onfocusout: false,
-    showErrors: function (errorMap, errorList) {
-      if (this.numberOfInvalids()) {
-        // 에러가 있으면
-        alert(errorList[0].message); // 경고창으로 띄움
+    errorClass: 'is-invalid',
+    validClass: 'is-valid',
+    errorPlacement: function (error, element) {
+      // 에러 발생 시 alert 창으로 띄우고 element나 tooltip으로 표시 안함
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass(errorClass);
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass(errorClass);
+      //            $(element).addClass(validClass);      // valid border 표시
+    },
+    invalidHandler: function (form, validator) {
+      var obj = validator.errorList[0].element;
+      // focus invalid input
+      var errors = validator.numberOfInvalids();
+      if (errors) {
+        alert(validator.errorList[0].message); // 경고창으로 띄움
+        validator.errorList[0].element.focus();
       }
     },
   });
+
+  $.validator.addMethod(
+    'time',
+    function (value, element) {
+      if (value == '') return true;
+      return /^(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$/.test(value);
+    },
+    '형식에 맞춰 시간을 입력해 주세요 (HH:MM:SS)'
+  );
 });
-```
-
-## 시간 validate
-
-```javascript
-$.validator.addMethod(
-  'time',
-  function (value, element) {
-    if (value == '') return true;
-    return /^(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$/.test(value);
-  },
-  '형식에 맞춰 시간을 입력해 주세요 (HH:MM:SS)'
-);
 ```
 
 ## valid() - 원하시는 시점에 validate 수행
