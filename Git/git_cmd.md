@@ -151,6 +151,16 @@ Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지�
 
 > git rm --cached FILENAME
 
+## git reset HEAD
+
+add로 Staging 된 파일 취소하기
+
+> git reset HEAD [filepath]
+
+만약 파일 삭제를 취소하려면 unStaging 상태에서 checkout 받기
+
+> git checkout -- [filepath]
+
 ## git merge
 
 합칠 브랜치에서 합쳐질 브랜치를 merge
