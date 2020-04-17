@@ -11,12 +11,12 @@
 - 날짜 선택 시 특정 element에 값 입력하기
 
 ```javascript
-$(function() {
+$(function () {
   $('#dueDate').datepicker({
     dateFormat: 'yy-mm-dd',
-    onSelect: function(d) {
+    onSelect: function (d) {
       $('#duDate').text(d);
-    }
+    },
   });
 });
 ```
@@ -41,7 +41,7 @@ $(function() {
 - [참고링크](https://its-easy.tistory.com/12)
 
 ```javascript
-$(function() {
+$(function () {
   //모든 datepicker에 대한 공통 옵션 설정
   $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd', //Input Display Format 변경
@@ -59,7 +59,7 @@ $(function() {
     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], //달력의 요일 부분 텍스트
     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'], //달력의 요일 부분 Tooltip 텍스트
     minDate: '-1M', //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-    maxDate: '+1M' //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+    maxDate: '+1M', //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
   });
 
   //input을 datepicker로 선언
@@ -71,4 +71,72 @@ $(function() {
   //To의 초기값을 내일로 설정
   $('#datepicker2').datepicker('setDate', '+1D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 });
+```
+
+## datepicker today button
+
+- today 버튼 클릭 시 오늘 날짜로 선택되도록
+
+```javascript
+obj.datepicker({
+  showButtonPanel: true,
+});
+
+$.datepicker._gotoToday = function (id) {
+  $(id).datepicker('setDate', new Date()).datepicker('hide').blur().change();
+};
+```
+
+## sample
+
+```javascript
+$(function () {
+  /* jquery ui datepicker 공통 옵션 정의 */
+  $.datepicker.setDefaults({
+    dateFormat: 'yy-mm-dd', //Input Display Format 변경
+    showOtherMonths: true, //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+    showMonthAfterYear: true, //년도 먼저 나오고, 뒤에 월 표시
+    changeYear: true, //콤보박스에서 년 선택 가능
+    changeMonth: true, //콤보박스에서 월 선택 가능
+    yearSuffix: '년', //달력의 년도 부분 뒤에 붙는 텍스트
+    monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], //달력의 월 부분 텍스트
+    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], //달력의 월 부분 Tooltip 텍스트
+    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], //달력의 요일 부분 텍스트
+    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'], //달력의 요일 부분 Tooltip 텍스트
+    currentText: '오늘',
+  });
+});
+
+function fn_datepicker(obj, options) {
+  let m_options = $.extend(
+    {},
+    {
+      format: 'yy-mm-dd',
+      isToday: false,
+      showTodayButton: true,
+    },
+    options
+  );
+
+  // datepicker 생성
+  obj.datepicker({
+    dateFormat: m_options.format,
+  });
+
+  // 사용자 옵션에 따라 설정 추가
+  // 1. 로딩 시 오늘 날짜로 설정
+  if (m_options.isToday) {
+    obj.datepicker('setDate', 'today');
+  } else {
+    obj.datepicker('setDate', '');
+  }
+
+  // 2. 오늘 버튼 달력 하단에 추가
+  if (m_options.showTodayButton) {
+    obj.datepicker('option', 'showButtonPanel', true);
+    $.datepicker._gotoToday = function (id) {
+      $(id).datepicker('setDate', new Date()).datepicker('hide').blur().change();
+    };
+  }
+}
 ```
