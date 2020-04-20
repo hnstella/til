@@ -5,6 +5,7 @@
 - jquery
 - jquery-ui [다운로드](http://jqueryui.com/download/all/)
 - 한글화 파일 [링크](https://github.com/jquery/jquery-ui/blob/master/ui/i18n/datepicker-ko.js)
+- [jquery-ui datepicker api](https://api.jqueryui.com/datepicker/)
 
 ## 사용법
 
@@ -87,6 +88,48 @@ $.datepicker._gotoToday = function (id) {
 };
 ```
 
+- clear 버튼 추가
+
+```javascript
+function cleanDatepicker() {
+  var old_fn = $.datepicker._updateDatepicker;
+
+  $.datepicker._updateDatepicker = function (inst) {
+    old_fn.call(this, inst);
+
+    var buttonPane = $(this).datepicker('widget').find('.ui-datepicker-buttonpane');
+
+    $(
+      "<button type='button' class='ui-datepicker-clean ui-state-default ui-priority-primary ui-corner-all'>Delete</button>"
+    )
+      .appendTo(buttonPane)
+      .click(function (ev) {
+        $.datepicker._clearDate(inst.input);
+      });
+  };
+}
+```
+
+- done 버튼 없애기
+
+```css
+/* datepicker input, custom button 롤오버 시 손가락 모양 표시*/
+.hasDatepicker,
+.btn-datepicker {
+  cursor: pointer;
+}
+
+/* datepicker DONE 버튼 숨기기 */
+button.ui-datepicker-close {
+  display: none;
+}
+
+/* 오늘 버튼 글씨 투명도 수정 */
+button.ui-datepicker-current {
+  opacity: 1 !important;
+}
+```
+
 ## sample
 
 ```javascript
@@ -138,5 +181,16 @@ function fn_datepicker(obj, options) {
       $(id).datepicker('setDate', new Date()).datepicker('hide').blur().change();
     };
   }
+}
+```
+
+## input readonly일 때 datepicker 달력 표시하지 않도록 변경하기
+
+- 공통 적용 시 setDefaults에 아래 옵션 추가
+- [참고](https://stackoverflow.com/questions/7812063/jquery-datepicker-readonly)
+
+```javascript
+beforeShow: function(i) {
+  if ($(i).attr('readonly')) { return false; }
 }
 ```
